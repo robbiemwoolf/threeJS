@@ -1,0 +1,112 @@
+// 05 Transform Objects
+
+// There are 4 properties to transform objects in our scene
+    // position (to move the object)
+    // scale (to resize the object)
+    // rotation (to rotate the object)
+    // quaternion (to also rotate the object)
+
+// All classes that inherit from the Object3D class possess those properties like PerspectiveCamera or Mesh.
+
+// Those properties will be compiled in matrices. Matrices are used internally by Three.js, by the WebGL, and by the GPU to transform things.
+
+// The distance of 1 unit is arbitrary (think of it according to what you are building)
+
+// positioning things in space can be hard, using AxesHelper will allow us to see the axes in space
+
+// scale objects
+    // a vecter of 3
+
+// Rotate objects
+    // can use rotation or quaternion
+        // updating one will automatically update the other
+
+    // rotation also have x, y, and z properties buts it's a Euler
+
+    // When you change the x,y, and z properties you can imagine putting a stick through your object's center in the axis's direction and then rotating that object on that stick
+
+    // Avoid rotating another axis with the rotation of another this can cause a gimbal lock
+
+    // To avoid this let's use reorder(...) method object.rotation.reorder('yxz')
+        // do it before changing the rotation
+        // why ? for different apps
+            // fps yxz is the order but you can do without the z
+
+    // Euler is easy to understand but this axis order can be problematic this is why most engines and 3d softwares use Quaternion
+
+    // With Quaternion
+        // expresses rotation in a more mathematical way
+        // we will not cover quaternions in this lesson but remember that the quaternion updates when you change the rotation
+
+// Object3D instances have a lookAt(...) method which rotates the object so that its -z faces the target you provided
+    // the target must be a Vector3
+
+// combining transformations
+    // you can combine position, rotation, and scale in any order
+
+// Scene graph
+    // you can put objects inside groups and use position, rotation, and scale on those groups
+    // to do that, use the Group clas
+    // like if I have a car with many separate parts, I can group them together to move/scale them as one
+
+/*import './style.css';
+import * as THREE from 'three';
+
+// Scene
+const scene = new THREE.Scene();
+
+// Object
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+const mesh = new THREE.Mesh(geometry, material);
+scene.add(mesh);
+
+// Position
+// this can be anywhere after creating the object and before the render
+// mesh.position.x = .7;
+// mesh.position.y = -.6;
+// mesh.position.z = 1;
+mesh.position.set(.7, -.6, 1); // same thing as the above three lines
+
+// Scale
+mesh.scale.set(2, .5, .5);
+
+// Rotation
+mesh.rotation.reorder('YXZ');
+mesh.rotation.x = Math.PI * .25; // Math.PI gives us an approx of pi, Math.PI gives a 180 degree rotation on designated axis
+mesh.rotation.y = Math.PI * .25;
+
+// Axes helper
+const axesHelper = new THREE.AxesHelper(); // pass a number in to change axes length
+// it is an object so we need to add it to a scene
+scene.add(axesHelper);
+
+// console.log("length of vector:", mesh.position.length()); 
+
+// mesh.position.normalize(); // changes the length of the vector to one
+
+
+// Sizes
+const sizes = {
+    width: 800,
+    height: 600
+};
+
+// Camera
+const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
+camera.position.z = 3;
+scene.add(camera);
+
+camera.lookAt(new THREE.Vector3(3, 0, 0))
+
+// console.log("distance to camera:", mesh.position.distanceTo(camera.position));
+
+// Renderer
+const renderer = new THREE.WebGLRenderer({
+    canvas: document.querySelector('canvas.webgl')
+});
+renderer.setSize(sizes.width, sizes.height);
+renderer.render(scene, camera);
+
+
+ */
